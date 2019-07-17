@@ -1,0 +1,11 @@
+name: project_environment
+channels:
+- defaults
+dependencies:
+- python=3.6.2
+- pip:
+  - pandas
+  - tensorflow
+  - click
+  - PyYAML
+  - git+https://github.com/StudioCommunity/CustomModules.git@migu/NewYamlTest#subdirectory=dstest
