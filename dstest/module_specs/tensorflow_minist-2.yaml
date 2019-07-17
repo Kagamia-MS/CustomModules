@@ -1,0 +1,30 @@
+name: Tensorflow Train - MNIST
+id: a140e35b-4f72-4b9b-b3be-c9183cd40290
+category: Machine Learning\Train
+description: DS tensorflow train which outputs a tensorflow model with spec
+inputs:
+- name: Multiple Output
+  type: Boolean
+  default: true
+  description: If checked, write a model spec with Multiple Output.
+outputs:
+- name: Output Model
+  type: ModelFolder
+  port: True
+  description: The Output model
+implementation:
+  container:
+    conda: ./conda.yaml
+    command:
+    - python
+    - -m
+    - dstest.tensorflow.mnist
+    args:
+    - --multiple_output
+    - inputValue: Multiple Output
+    - --model_path
+    - outputPath: Output Model
+  invoking:
+    module:
+    class:
+    func:
