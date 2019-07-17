@@ -14,18 +14,7 @@ outputs:
   description: The Output model
 implementation:
   container:
-    conda:
-      name: project_environment
-      channels:
-      - defaults
-      dependencies:
-      - python=3.6.2
-      - pip:
-        - pandas
-        - tensorflow
-        - click
-        - PyYAML
-        - git+https://github.com/StudioCommunity/CustomModules.git@migu/NewYamlTest#subdirectory=dstest
+    conda: conda.yaml
     command:
     - python
     - -m
