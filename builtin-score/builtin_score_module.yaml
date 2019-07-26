@@ -4,12 +4,12 @@ category: Machine Learning\Score
 description: Buildin Score Module for a set of limited flavors
 inputs:
 - name: Trained model
-  type: Model
-  connectable: true
+  type: ModelFolder
+  port: true
   description: Trained predictive model
 - name: Dataset
-  type: Dataset
-  connectable: True
+  type: TabularDataFolder
+  port: True
   description: input data to score
 - name: Append score columns to output
   type: Boolean
@@ -18,7 +18,7 @@ inputs:
     return the scores and true labels if available.
 outputs:
 - name: Scored dataset
-  type: Dataset
+  type: TabularDataFolder
   description: Dataset with obtained scores
 implementation:
   container:
@@ -26,24 +26,23 @@ implementation:
       baseDockerImage: mcr.microsoft.com/azureml/base-gpu:intelmpi2018.3-cuda10.0-cudnn7-ubuntu16.04
       gpuSupport: true
     conda:
-      content:
-        name: project_environment
-        channels:
-        - defaults
-        dependencies:
-        - python=3.6.8
-        - pip:
-          - --extra-index-url=https://test.pypi.org/simple
-          - alghost==0.0.53
-          - azureml-defaults
-          - cloudpickle
-          - PyYAML
-          - pyarrow==0.12.1
-          - nltk==3.4
-          - numpy==1.16.2
-          - torchvision==0.2.2.post3
-          - https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
-          - git+$(git-url)@$(git-branch)#subdirectory=builtin-score
+      name: project_environment
+      channels:
+      - defaults
+      dependencies:
+      - python=3.6.8
+      - pip:
+        - --extra-index-url=https://test.pypi.org/simple
+        - alghost==0.0.53
+        - azureml-defaults
+        - cloudpickle
+        - PyYAML
+        - pyarrow==0.12.1
+        - nltk==3.4
+        - numpy==1.16.2
+        - torchvision==0.2.2.post3
+        - https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl
+        - git+$(git-url)@$(git-branch)#subdirectory=builtin-score
     invoking:
       module: builtin_score.builtin_score_module
       class: BuiltinScoreModule
